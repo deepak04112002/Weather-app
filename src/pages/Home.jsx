@@ -3,6 +3,7 @@ import { Box, styled } from '@mui/material';
 import Sunset from '../assets/bg.jpg';
 import Form from '../components/Form';
 import Information from '../components/Information';
+import React from 'react';
 
 const Component = styled(Box)({
     height: '100vh',
@@ -15,7 +16,7 @@ const Component = styled(Box)({
 const Image = styled(Box)({
     backgroundImage: `url(${Sunset})`,
     width: '27%',
-    height: '80%',
+    height: '655px',
     backgroundSize: 'cover',
     borderRadius: '20px 0 0 20px'
 })
@@ -28,7 +29,7 @@ const Home = () => {
             <Image></Image>
             <Box style={{ width: '73%', height: '80%' }}>
                 <Form setResult={setResult} />
-                <Information result={result} />
+                <Information result={result}/>
             </Box>
         </Component>
     )

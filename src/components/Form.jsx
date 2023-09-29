@@ -30,17 +30,17 @@ const Form = ({ setResult }) => {
     }
 
     return (
-        <Container>
+        <Container style={{display:'flex',gap:'260px'}}>
             <Input 
                 placeholder="City"
                 onChange={(e) => handleChange(e)}
                 name="city"
             />
-            <Input 
+            {/* <Input 
                 placeholder="Country"
                 onChange={(e) => handleChange(e)}
                 name="country"
-            />
+            /> */}
             <GetButton
                 variant="contained"
                 onClick={() => getWeatherInfo()}
