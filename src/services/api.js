@@ -10,7 +10,6 @@ export const getWeather = async (city) => {
 
   try {
     const response = await axios.get(`${API_URL}?key=${API_KEY}&q=${city.trim()}&aqi=yes`);
-    console.log('API Response:', response.data); // Debugging log
     return { success: true, data: response.data };
   } catch (error) {
     const errorMessage = error.response?.data?.error?.message || error.message || 'Failed to fetch weather data';
