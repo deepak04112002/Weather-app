@@ -4,59 +4,81 @@ import SearchIcon from "@mui/icons-material/Search";
 import { getWeather } from "../services/api";
 
 const Container = styled(Box)(({ theme }) => ({
-  background: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.03)' : 'rgba(255, 255, 255, 0.8)',
-  padding: theme.spacing(1.5),
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(2),
-  },
-  borderRadius: 12,
-  boxShadow: theme.palette.mode === 'dark'
-    ? '0 0 0 1px rgba(255, 255, 255, 0.05)'
-    : '0 0 0 1px rgba(0, 0, 0, 0.05)',
-  border: 'none',
+  padding: theme.spacing(1),
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(1.5),
-  [theme.breakpoints.up('sm')]: {
+
+  [theme.breakpoints.up("sm")]: {
     flexDirection: "row",
-    gap: theme.spacing(2),
+    gap: theme.spacing(3),
     alignItems: "center",
   },
 }));
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   flex: 1,
+
   "& .MuiOutlinedInput-root": {
+    height: 48,
+    background: "transparent",
+    borderRadius: 8,
+
     "& fieldset": {
-      borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : theme.palette.divider,
-      transition: 'all 0.2s ease',
+      borderColor:
+        theme.palette.mode === "dark"
+          ? "rgba(255, 255, 255, 0.3)"
+          : theme.palette.divider,
+      transition: "all 0.2s ease",
     },
+
     "&:hover fieldset": {
-      borderColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : theme.palette.primary.main,
+      borderColor:
+        theme.palette.mode === "dark"
+          ? "rgba(255, 255, 255, 0.6)"
+          : theme.palette.primary.main,
     },
+
     "&.Mui-focused fieldset": {
       borderColor: theme.palette.secondary.main,
-      borderWidth: '1px',
+      borderWidth: "1px",
     },
+  },
+
+  "& input": {
+    color: theme.palette.text.primary,
+  },
+
+  "& input::placeholder": {
+    color: theme.palette.text.secondary,
+    opacity: 0.7,
+  },
+  "& input:-webkit-autofill": {
+    WebkitBoxShadow: `0 0 0 100px transparent inset !important`,
+    WebkitTextFillColor: theme.palette.text.primary,
+    transition: "background-color 5000s ease-in-out 0s",
   },
 }));
 
 const SearchButton = styled(Button)(({ theme }) => ({
+  height: 45,
   padding: theme.spacing(1.5, 3),
   textTransform: "none",
   fontSize: "0.95rem",
   fontWeight: 500,
   borderRadius: 8,
-  transition: 'all 0.2s ease',
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    width: 'auto',
+  transition: "all 0.2s ease",
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    width: "auto",
   },
-  '&:hover': {
-    transform: 'translateY(-1px)',
-    boxShadow: theme.palette.mode === 'dark'
-      ? '0 4px 12px rgba(96, 165, 250, 0.3)'
-      : '0 4px 12px rgba(14, 165, 233, 0.3)',
+  "&:hover": {
+    transform: "translateY(-1px)",
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow:
+      theme.palette.mode === "dark"
+        ? "0 6px 18px rgba(96, 165, 250, 0.5)"
+        : "0 6px 18px rgba(14, 165, 233, 0.5)",
   },
 }));
 
@@ -65,22 +87,28 @@ export default function Form({ setResult, setLoading, setError }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!city.trim()) {
       setError("Please enter a city name");
       return;
     }
 
-    setLoading(true);
-    setError(null);
-    setResult(null);
+    try {
+      setLoading(true);
+      setError(null);
+      setResult(null);
 
-    const response = await getWeather(city);
-    setLoading(false);
+      const response = await getWeather(city);
 
-    if (response.success) {
-      setResult(response.data);
-    } else {
-      setError(response.error);
+      if (response.success) {
+        setResult(response.data);
+      } else {
+        setError(response.error);
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 

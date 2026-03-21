@@ -135,7 +135,7 @@ export default function Information({ result, loading, error }) {
           </WeatherIcon>
           <StatBox>
             <Typography variant="h3" fontWeight="700" sx={{ fontSize: { xs: '1.75rem', sm: '3rem' } }}>
-              {result.current.temp_c}°
+              {result.current.temp_c}° C
             </Typography>
             <Typography variant="caption" color="text.secondary" sx={{ display: { xs: 'none', sm: 'block' } }}>
               {result.current.condition.text}

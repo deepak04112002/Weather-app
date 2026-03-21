@@ -9,8 +9,8 @@ const PageContainer = styled(Box)(({ theme }) => ({
   minHeight: "100vh",
   background:
     theme.palette.mode === "dark"
-      ? "#000000"
-      : "linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%)",
+      ? theme.palette.grey[900]
+      : theme.palette.common.white,
   padding: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(3),
