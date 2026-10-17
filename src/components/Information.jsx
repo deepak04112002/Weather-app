@@ -131,7 +131,7 @@ export default function Information({ result, loading, error }) {
         </Box>
         <Box display="flex" alignItems="center" gap={1}>
           <WeatherIcon>
-            <img src={result.current.condition.icon} alt="weather" width="50" />
+            <img src={`https:${result.current.condition.icon}`} alt="weather" width="50" />
           </WeatherIcon>
           <StatBox>
             <Typography variant="h3" fontWeight="700" sx={{ fontSize: { xs: '1.75rem', sm: '3rem' } }}>
@@ -267,69 +267,71 @@ export default function Information({ result, loading, error }) {
           </InfoCard>
         </Grid>
 
-        <Grid item xs={12}>
-          <InfoCard>
-            <CardContent sx={{ py: 1.5, px: 2 }}>
-              <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
-                <Typography variant="h6" fontWeight="600">
-                  Air Quality Index
-                </Typography>
-                <Chip label="Live" color="secondary" size="small" />
-              </Box>
-              <Divider sx={{ mb: 2 }} />
-              <Grid container spacing={2}>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">CO</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.co.toFixed(1)}</Typography>
-                  </Box>
+        {result.current.air_quality && (
+          <Grid item xs={12}>
+            <InfoCard>
+              <CardContent sx={{ py: 1.5, px: 2 }}>
+                <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+                  <Typography variant="h6" fontWeight="600">
+                    Air Quality Index
+                  </Typography>
+                  <Chip label="Live" color="secondary" size="small" />
+                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <Grid container spacing={2}>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">CO</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.co?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">NO₂</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.no2?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">O₃</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.o3?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">SO₂</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.so2?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">PM2.5</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.pm2_5?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">PM10</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality.pm10?.toFixed(1) ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">US EPA</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality['us-epa-index'] ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={6} sm={3}>
+                    <Box textAlign="center" p={1}>
+                      <Typography variant="body2" color="text.secondary">GB DEFRA</Typography>
+                      <Typography variant="h6" fontWeight="700">{result.current.air_quality['gb-defra-index'] ?? 'N/A'}</Typography>
+                    </Box>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">NO₂</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.no2.toFixed(1)}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">O₃</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.o3.toFixed(1)}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">SO₂</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.so2.toFixed(1)}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">PM2.5</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.pm2_5.toFixed(1)}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">PM10</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality.pm10.toFixed(1)}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">US EPA</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality['us-epa-index']}</Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box textAlign="center" p={1}>
-                    <Typography variant="body2" color="text.secondary">GB DEFRA</Typography>
-                    <Typography variant="h6" fontWeight="700">{result.current.air_quality['gb-defra-index']}</Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </InfoCard>
-        </Grid>
+              </CardContent>
+            </InfoCard>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

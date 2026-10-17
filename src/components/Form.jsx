@@ -100,6 +100,8 @@ export default function Form({ setResult, setLoading, setError }) {
 
       const response = await getWeather(city);
 
+      if (!response) return;
+
       if (response.success) {
         setResult(response.data);
       } else {
