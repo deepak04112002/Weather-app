@@ -1,0 +1,19 @@
+# ---------------------------------------------------------------------------
+# Pre-commit hooks. Install once per clone:
+#   pip install pre-commit      (or: brew install pre-commit)
+#   pre-commit install
+#
+# Keep the gitleaks version pinned here identical to the version installed on
+# the Jenkins agents, so local and pipeline results match.
+#
+# Copy the central config into the repo root as .gitleaks.toml so the hook
+# uses the same rules as the pipeline:
+#   cp /opt/devsecops/infra/security/gitleaks/gitleaks.toml .gitleaks.toml
+# ---------------------------------------------------------------------------
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        # Scans only staged changes, so it runs quickly on each commit.
+        # Gitleaks picks up .gitleaks.toml from the repo root automatically.
